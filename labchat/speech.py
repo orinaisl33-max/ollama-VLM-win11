@@ -120,8 +120,8 @@ class SpeechController(QObject):
             return
         self.voice_data.clear()
         self.discovery_error = False
-        self.discovery.start(self.program, self.prefix_args + ["-v", "?"])
         self.discovery_timer.start(5000)
+        self.discovery.start(self.program, self.prefix_args + ["-v", "?"])
 
     def _read_voices(self):
         self.voice_data.extend(bytes(self.discovery.readAllStandardOutput()))
@@ -182,11 +182,11 @@ class SpeechController(QObject):
             self._complete("已停止朗讀")
             return False
         # No shell. Text stays in stdin rather than appearing in process arguments or files.
+        self.play_timer.start(600000)
         self.player.start(
             self.program,
             self.prefix_args + ["-v", voice, "-r", str(max(100, min(260, rate))), "-f", "-"],
         )
-        self.play_timer.start(600000)
         return True
 
     def _started(self):

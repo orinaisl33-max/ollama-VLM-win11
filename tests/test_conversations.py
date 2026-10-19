@@ -3,6 +3,7 @@
 import sqlite3
 import tempfile
 import unittest
+from contextlib import closing
 from pathlib import Path
 from unittest.mock import patch
 
@@ -110,11 +111,11 @@ class ConversationStoreTests(unittest.TestCase):
 
     def test_newer_schema_not_overwritten(self):
         self.store.close()
-        with sqlite3.connect(self.path) as db:
+        with closing(sqlite3.connect(self.path)) as db, db:
             db.execute("PRAGMA user_version=99")
         with self.assertRaises(HistoryError):
             ConversationStore(self.path)
-        with sqlite3.connect(self.path) as db:
+        with closing(sqlite3.connect(self.path)) as db, db:
             self.assertEqual(db.execute("PRAGMA user_version").fetchone()[0], 99)
 
     def test_corrupt_database_is_not_deleted_or_replaced(self):
@@ -155,7 +156,7 @@ class ConversationStoreTests(unittest.TestCase):
     def test_schema_one_migration_preserves_turns(self):
         identifier = self.turn()
         self.store.close()
-        with sqlite3.connect(self.path) as db:
+        with closing(sqlite3.connect(self.path)) as db, db:
             db.execute("DROP TABLE drafts")
             db.execute("PRAGMA user_version=1")
         self.store = ConversationStore(self.path)
@@ -180,7 +181,7 @@ class ConversationStoreTests(unittest.TestCase):
 
     def test_unrecognized_columns_are_not_automatically_migrated(self):
         self.store.close()
-        with sqlite3.connect(self.path) as db:
+        with closing(sqlite3.connect(self.path)) as db, db:
             db.execute("ALTER TABLE conversations RENAME COLUMN title TO unexpected")
             db.execute("PRAGMA user_version=1")
         original = self.path.read_bytes()

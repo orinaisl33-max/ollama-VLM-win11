@@ -174,8 +174,8 @@ class ModelSettings(QDialog):
         self.status.setText("正在下載… 可停止；Ollama 可能保留部分下載供重試使用。")
         self._update()
         self.downloading_changed.emit(True)
-        self.process.start(program, ["pull", identifier])
         self.timer.start(30 * 60 * 1000)
+        self.process.start(program, ["pull", identifier])
 
     def _output(self):
         if not self.process.isOpen():

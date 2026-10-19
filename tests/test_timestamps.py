@@ -3,6 +3,7 @@
 import sqlite3
 import tempfile
 import unittest
+from contextlib import closing
 from pathlib import Path
 
 from PySide6.QtGui import QTextCursor
@@ -48,7 +49,7 @@ class TimestampTests(unittest.TestCase):
             store = ConversationStore(path)
             identifier = store.append(None, "qwen3.5:2b", "舊問題", "舊回答")
             store.close()
-            with sqlite3.connect(path) as db:
+            with closing(sqlite3.connect(path)) as db, db:
                 db.execute("ALTER TABLE turns DROP COLUMN asked_at")
                 db.execute("ALTER TABLE turns DROP COLUMN answered_at")
                 db.execute("PRAGMA user_version=4")

@@ -443,6 +443,7 @@ class DictationPanel(QWidget):
         self.data.clear()
         self.output.clear()
         self._set_state("transcribing", "正在本機辨識…可取消；完成後請核對文字")
+        self.timer.start(180000)
         self.process.start(
             self.program,
             [
@@ -460,7 +461,6 @@ class DictationPanel(QWidget):
                 "4",
             ],
         )
-        self.timer.start(180000)
 
     def _capture_tail(self):
         if self.device:

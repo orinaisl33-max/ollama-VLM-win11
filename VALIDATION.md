@@ -17,6 +17,8 @@
 
 GitHub Windows runner 可能是 Windows Server；即使通過，也不等同 Windows 11 實機桌面、GPU、模型下載／推論及匯出人工驗收。CI 不下載模型、不錄音。
 
+首輪 Windows CI 成功建立 venv、安裝校驗套件並通過 pip／Qt／Ruff；236 項測試中發現 2 個程序啟動失敗的計時器順序問題，以及 4 個測試 SQLite 連線未明確關閉而使暫存檔鎖住的錯誤。已把逾時計時器移到程序啟動前，並明確關閉測試連線，保留全部測試重新執行；未以跳過測試處理。
+
 ## 仍待驗收
 
 依 [Windows 實機驗收表](docs/WINDOWS_ACCEPTANCE.md) 完成新機、Qt DLL、Ollama 驅動、模型、真實視窗、縮放、逐框預覽、匯出與紀錄操作。沒有 Windows 實機結果前，不對使用者宣稱全功能已驗證或百分之百可安裝。
