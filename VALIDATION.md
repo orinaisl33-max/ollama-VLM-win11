@@ -13,7 +13,16 @@
 
 ## Windows 原生自動化
 
-已加入 [GitHub Actions](https://github.com/orinaisl33-max/ollama-VLM-win11/actions)：Windows runner、Python 3.14 x64、新建 venv、hash 套件安裝、pip／Qt 檢查及回歸測試。實際結果請以該提交的 workflow 為準，初次上傳前尚無結果，不先宣稱通過。
+已加入 [GitHub Actions](https://github.com/orinaisl33-max/ollama-VLM-win11/actions)：Windows runner、Python 3.14 x64、新建 venv、hash 套件安裝、pip／Qt 檢查及回歸測試。
+
+修正提交 `23ab0ad` 的 [原生 Windows CI 已通過](https://github.com/orinaisl33-max/ollama-VLM-win11/actions/runs/39203969520)：
+
+- runner：Windows Server 2025、build 26100、AMD64。
+- Python：CPython 3.14.8 x64。
+- 新建 `.venv`、六個固定 wheel 的 SHA256 安裝、`pip check`、QtWidgets／QtNetwork／QtMultimedia 匯入及 Ruff 全部成功。
+- 全部 **236 項測試通過**，測試耗時 30.547 秒。
+
+此段是實際取得的 Windows 原生結果；本次補記只修改文件，不改動已驗證程式碼。
 
 GitHub Windows runner 可能是 Windows Server；即使通過，也不等同 Windows 11 實機桌面、GPU、模型下載／推論及匯出人工驗收。CI 不下載模型、不錄音。
 
