@@ -4,7 +4,7 @@ Windows 專用版本：本機 Ollama 文字／圖片聊天、串流回答、逐�
 
 **目前為 Windows 移植版，尚未完成 Windows 11 實機桌面／模型驗收。** Mac 上通過的測試與 Windows 套件可下載，不能等同所有 Windows 功能已驗證。驗證進度見 [VALIDATION.md](VALIDATION.md)。
 
-已通過 [Windows Server 原生 CI](https://github.com/orinaisl33-max/ollama-VLM-win11/actions/runs/39206897565)：Python 3.14.8、新建 venv、套件 SHA256、Qt 載入與 239 項回歸成功；Windows 11 實機桌面／GPU／模型驗收仍待完成。
+已通過 [Windows Server 原生 CI](https://github.com/orinaisl33-max/ollama-VLM-win11/actions/runs/39208780631)：Python 3.14.8、新建 venv、套件 SHA256、Qt 載入與 244 項回歸成功；Windows 11 實機桌面／GPU／模型驗收仍待完成。
 
 ![介面參考](docs/images/app-home.png)
 

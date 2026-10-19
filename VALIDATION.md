@@ -37,3 +37,9 @@ GitHub Windows runner 可能是 Windows Server；即使通過，也不等同 Win
 新增兩個獨立勾選：顯示框的中心點、顯示上／下／左／右邊中點。兩項皆勾選時每框五個同色實心圓點（白邊），預設關閉。預覽、移動／縮放與 PNG 匯出同步顯示，JSON／Labelme 不改格式，不把點當作物件輪廓重心或人體關節。
 
 程式提交 `d1147bc` 的 [Windows 原生 CI](https://github.com/orinaisl33-max/ollama-VLM-win11/actions/runs/39206897565) 已全部通過，共 239 項；包含幾何中點、獨立開關、PNG 圓點像素、圖層預覽與原始座標保留。這仍是 Windows Server runner，不取代 Windows 11 實機驗收。
+
+## 回答操作選單修正
+
+圖片紀錄改為依實際已存圖片數啟用，顯示張數或不可用原因。重新附圖會保留草稿、移動焦點並明確提示尚未發送，不自動提交問題。讀取已存圖片失敗時保留現有附件與標註。兩個參考點勾選功能保留。
+
+[Windows 原生 CI](https://github.com/orinaisl33-max/ollama-VLM-win11/actions/runs/39208780631) 已全部通過，共 244 項，程式／測試提交為 `9ca2bf5`。其中新增測試實際觸發選單項目、開啟已存圖片、確認重新附圖不自動送出、核對讀取失敗保留資料。另把既有動畫測試由固定 100ms 改為等待真實 timeout 訊號，並確認停止後訊號不再增加，避免 Windows 忙碌時的時間假設。
