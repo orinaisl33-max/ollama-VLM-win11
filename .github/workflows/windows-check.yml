@@ -1,0 +1,39 @@
+name: Windows package and regression checks
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    env:
+      QT_QPA_PLATFORM: offscreen
+      PYTHONUTF8: "1"
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: "3.14"
+          architecture: x64
+      - name: Record runner system
+        run: python -c "import platform,sys; print(platform.platform()); print(sys.version)"
+      - name: Install verified Windows wheels
+        run: |
+          python -m venv .venv
+          .\.venv\Scripts\python.exe -m pip --isolated install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple -r requirements-windows-hashed.lock.txt
+      - name: Check dependencies and Qt
+        run: |
+          .\.venv\Scripts\python.exe -m pip check
+          .\.venv\Scripts\python.exe -c "from PySide6 import QtWidgets,QtNetwork,QtMultimedia; print('Qt import OK')"
+      - name: Lint
+        run: |
+          .\.venv\Scripts\python.exe -m pip install --only-binary=:all: ruff==0.17.0
+          .\.venv\Scripts\python.exe -m ruff check main.py labchat scripts tests
+          .\.venv\Scripts\python.exe -m ruff format --check main.py labchat scripts tests
+      - name: Regression tests without models or recording
+        run: .\.venv\Scripts\python.exe -X faulthandler -m unittest discover -s tests -v
