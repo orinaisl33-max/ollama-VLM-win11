@@ -109,3 +109,7 @@ Remove-Item Env:QT_QPA_PLATFORM
 offscreen 用於測試，不能取代桌面 GUI；日常執行前移除。自動化 CI 使用 GitHub 的 Windows runner，也不能視為使用者 Windows 11 GPU／實機驗收。
 
 程式衍生自 [Mac 原專案](https://github.com/orinaisl33-max/ollama-VLM)，本 Windows 副本獨立維護；未複製 Mac 環境、模型或私人紀錄。既有 Logo 與素材權利不因發布而另行授權。
+
+### 圖片訊息檔名
+
+附圖送出後，訊息標頭會顯示「已附加圖片（檔名）」，只顯示檔名。檔名目前保留於本次開啟的視窗；重新載入歷史對話時仍顯示一般圖片提示，舊紀錄不會補上推測的檔名。
