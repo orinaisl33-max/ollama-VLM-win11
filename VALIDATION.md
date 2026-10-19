@@ -31,3 +31,9 @@ GitHub Windows runner 可能是 Windows Server；即使通過，也不等同 Win
 ## 仍待驗收
 
 依 [Windows 實機驗收表](docs/WINDOWS_ACCEPTANCE.md) 完成新機、Qt DLL、Ollama 驅動、模型、真實視窗、縮放、逐框預覽、匯出與紀錄操作。沒有 Windows 實機結果前，不對使用者宣稱全功能已驗證或百分之百可安裝。
+
+## 中心與四邊中點功能
+
+新增兩個獨立勾選：顯示框的中心點、顯示上／下／左／右邊中點。兩項皆勾選時每框五個同色實心圓點（白邊），預設關閉。預覽、移動／縮放與 PNG 匯出同步顯示，JSON／Labelme 不改格式，不把點當作物件輪廓重心或人體關節。
+
+程式提交 `d1147bc` 的 [Windows 原生 CI](https://github.com/orinaisl33-max/ollama-VLM-win11/actions/runs/39206897565) 已全部通過，共 239 項；包含幾何中點、獨立開關、PNG 圓點像素、圖層預覽與原始座標保留。這仍是 Windows Server runner，不取代 Windows 11 實機驗收。
